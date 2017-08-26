@@ -1,5 +1,7 @@
 package blanco.sfdc.objmeta.util;
 
+import com.sforce.soap.partner.PartnerConnection;
+
 /**
  * 
  * 
@@ -11,5 +13,8 @@ package blanco.sfdc.objmeta.util;
 public class App {
 	public static void main(String[] args) {
 		System.out.println("Hello World!");
+
+		PartnerConnection con = null;
+
 	}
 }
