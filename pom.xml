@@ -15,6 +15,7 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- force-partner-api-40.0.0.jar : partner.wsdl -->
 		<dependency>
 			<groupId>com.force.api</groupId>
 			<artifactId>force-partner-api</artifactId>
