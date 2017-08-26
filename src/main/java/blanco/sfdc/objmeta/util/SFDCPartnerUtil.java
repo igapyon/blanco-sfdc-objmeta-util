@@ -37,8 +37,12 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
+import com.sforce.soap.partner.DescribeGlobalResult;
+import com.sforce.soap.partner.DescribeGlobalSObjectResult;
 import com.sforce.soap.partner.PartnerConnection;
 import com.sforce.soap.partner.fault.LoginFault;
 import com.sforce.ws.ConnectionException;
@@ -76,5 +80,18 @@ public class SFDCPartnerUtil {
 		} catch (ConnectionException ex) {
 			throw new IOException("SFDC connection failed: " + ex.toString(), ex);
 		}
+	}
+
+	public static String[] getAllObjectNames(final PartnerConnection conn) throws IOException {
+		final List<String> nameList = new ArrayList<String>();
+		try {
+			final DescribeGlobalResult descResult = conn.describeGlobal();
+			for (DescribeGlobalSObjectResult sobjectResult : descResult.getSobjects()) {
+				System.out.println(sobjectResult.getName());
+			}
+		} catch (ConnectionException ex) {
+			throw new IOException(ex);
+		}
+		return nameList.toArray(new String[nameList.size()]);
 	}
 }

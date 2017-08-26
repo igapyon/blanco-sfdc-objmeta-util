@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import com.sforce.soap.partner.PartnerConnection;
+import com.sforce.ws.ConnectionException;
 
 /**
  * 
@@ -14,10 +15,14 @@ import com.sforce.soap.partner.PartnerConnection;
  *
  */
 public class App {
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException, ConnectionException {
 		System.out.println("Hello World!");
 
 		final PartnerConnection conn = SFDCPartnerUtil.connect(new File("sfdc.properties"));
 
+		final String[] allNames = SFDCPartnerUtil.getAllObjectNames(conn);
+		for (String look : allNames) {
+			System.out.println(look);
+		}
 	}
 }
