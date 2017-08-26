@@ -62,7 +62,7 @@ public class SFDCPartnerUtil {
 
 			final String url = prop.getProperty("url", "https://login.salesforce.com/services/Soap/u/40.0");
 			final String user = prop.getProperty("user", "NoUserSpesified");
-			final String pass = prop.getProperty("pass", "NoPassSpecified");
+			final String pass = prop.getProperty("password", "NoPassSpecified");
 			if (IS_TRACE) {
 				System.err.println("SFDC url: " + url);
 				System.err.println("     user: " + user);
