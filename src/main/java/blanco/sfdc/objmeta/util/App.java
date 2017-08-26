@@ -1,5 +1,8 @@
 package blanco.sfdc.objmeta.util;
 
+import java.io.File;
+import java.io.IOException;
+
 import com.sforce.soap.partner.PartnerConnection;
 
 /**
@@ -11,10 +14,10 @@ import com.sforce.soap.partner.PartnerConnection;
  *
  */
 public class App {
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		System.out.println("Hello World!");
 
-		PartnerConnection con = null;
+		final PartnerConnection conn = SFDCPartnerUtil.connect(new File("sfdc.properties"));
 
 	}
 }

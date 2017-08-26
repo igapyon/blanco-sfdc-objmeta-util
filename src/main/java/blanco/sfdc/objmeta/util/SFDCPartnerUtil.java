@@ -40,6 +40,7 @@ import java.io.InputStream;
 import java.util.Properties;
 
 import com.sforce.soap.partner.PartnerConnection;
+import com.sforce.soap.partner.fault.LoginFault;
 import com.sforce.ws.ConnectionException;
 import com.sforce.ws.ConnectorConfig;
 
@@ -56,8 +57,8 @@ public class SFDCPartnerUtil {
 			inStream.close();
 
 			final String url = prop.getProperty("url", "https://login.salesforce.com/services/Soap/u/40.0");
-			final String user = prop.getProperty("user");
-			final String pass = prop.getProperty("pass");
+			final String user = prop.getProperty("user", "NoUserSpesified");
+			final String pass = prop.getProperty("pass", "NoPassSpecified");
 			if (IS_TRACE) {
 				System.err.println("SFDC url: " + url);
 				System.err.println("     user: " + user);
@@ -68,6 +69,10 @@ public class SFDCPartnerUtil {
 			connectorCfg.setPassword(pass);
 
 			return new PartnerConnection(connectorCfg);
+		} catch (LoginFault ex) {
+			System.err.println("[" + ex.getExceptionCode() + "] " + ex.getExceptionMessage());
+			throw new IOException("SFDC connection failed: " + ex.getExceptionCode() + ": " + ex.getExceptionMessage(),
+					ex);
 		} catch (ConnectionException ex) {
 			throw new IOException("SFDC connection failed: " + ex.toString(), ex);
 		}
